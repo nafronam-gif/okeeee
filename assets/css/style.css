@@ -1,0 +1,54 @@
+:root{--blue:#0f6cff;--blue-dark:#0a54c4;--blue-soft:#f0f5ff;--bg:#f7f8fc;--text:#1a1f36;--muted:#6b7280;--line:#e5e7eb;--white:#ffffff;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#eef2ff;color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;margin:0;overflow-x:hidden;}
+button,input,select{font:inherit}
+button{cursor:pointer;border:none;background:none}
+a{text-decoration:none;color:inherit}
+.layout{display:flex;flex-direction:column;min-height:100vh;padding:0;background:transparent;position:relative;z-index:1;}
+.header{height:72px;background:rgba(255,255,255,0.9);backdrop-filter:blur(10px);display:flex;align-items:center;padding:0 32px;gap:32px;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50;}
+.logo{font-size:24px;font-weight:900;letter-spacing:-1.2px;color:var(--blue);white-space:nowrap;}
+.logo span{color:var(--text);}
+.btn{padding:10px 20px;border-radius:8px;font-size:14px;font-weight:700;transition:all .2s;}
+.btn-outline{border:1.5px solid var(--line);color:var(--text);background:white;}
+.btn-outline:hover{border-color:var(--blue);color:var(--blue);}
+.btn-primary{background:var(--blue);color:white;box-shadow:0 4px 12px rgba(15,108,255,0.2);}
+.btn-primary:hover{background:var(--blue-dark);}
+.content{max-width:1280px;margin:0 auto;padding:40px 32px 60px;width:100%;background:transparent;position:relative;z-index:2;}
+.joki-section-wrap{display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start;justify-content:center;}
+.joki-calc-section{flex:1;min-width:320px;max-width:500px;background:#ffffff;border:1px solid var(--line);border-radius:16px;padding:32px;box-shadow:0 8px 30px rgba(15,108,255,0.08);}
+.price-list-section{flex:1;min-width:320px;max-width:500px;background:#ffffff;border:1px solid var(--line);border-radius:16px;padding:32px;box-shadow:0 8px 30px rgba(15,108,255,0.08);}
+.joki-calc-header h2{font-size:24px;font-weight:900;color:var(--text);margin-bottom:8px;}
+.joki-calc-header p{font-size:14px;color:var(--muted);margin-bottom:24px;}
+.joki-calc-body{display:flex;flex-direction:column;gap:16px;}
+.calc-row{display:flex;gap:16px;}
+.calc-group{display:flex;flex-direction:column;gap:8px;flex:1;}
+.calc-group:first-child{flex:2;}
+.calc-group label{font-size:13px;font-weight:700;color:var(--text);}
+.calc-group select,.calc-group input{border:1.5px solid var(--line);border-radius:10px;padding:12px 16px;font-size:14px;outline:none;background:#f8f9fc;transition:all .2s;cursor:pointer;width:100%;}
+.calc-group select:focus,.calc-group input:focus{border-color:var(--blue);background:white;box-shadow:0 0 0 3px rgba(15,108,255,0.1);}
+.calc-footer{display:flex;justify-content:space-between;align-items:center;margin-top:24px;padding-top:24px;border-top:1px solid var(--line);gap:16px;}
+.calc-result{display:flex;flex-direction:column;}
+.calc-result span{font-size:13px;color:var(--muted);font-weight:600;}
+.calc-result strong{font-size:28px;color:var(--blue);font-weight:900;}
+.calc-footer .btn{padding:14px 28px;font-size:15px;border-radius:10px;background:var(--blue);color:white;font-weight:700;transition:background .2s;}
+.calc-footer .btn:hover{background:var(--blue-dark);}
+.price-list-section h2{font-size:24px;font-weight:900;margin-bottom:24px;}
+.price-grid{display:flex;flex-direction:column;gap:12px;}
+.price-card{background:#f8f9fc;border:1.5px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;transition:all .2s;}
+.price-card:hover{border-color:var(--blue);transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.05);}
+.price-card-top{padding:14px 20px;display:flex;align-items:center;gap:12px;background:white;}
+.price-card-top span{font-size:24px;}
+.price-card-top p{font-size:15px;font-weight:700;color:var(--text);}
+.price-card-bottom{background:var(--blue);padding:12px 20px;display:flex;align-items:baseline;justify-content:space-between;}
+.price-card-bottom strong{color:white;font-size:16px;font-weight:800;}
+.price-card-bottom span{color:#dbe6ff;font-size:12px;}
+@media(max-width:800px){
+    .joki-section-wrap{flex-direction:column;align-items:stretch;}
+    .joki-calc-section,.price-list-section{max-width:100%;}
+}
+@media(max-width:480px){
+    .calc-row{flex-direction:column;}
+    .calc-footer{flex-direction:column;align-items:stretch;}
+    .calc-footer .btn{width:100%;margin-top:12px;}
+    .header{padding:0 16px;gap:16px;}
+}
