@@ -1,0 +1,306 @@
+﻿<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JOKI BWS - CS Rank</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./assets/css/style.css">
+</head>
+<body>
+<div id="tsparticles" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none;"></div>
+<div class="layout" style="position: relative; z-index: 1;">
+<header class="header">
+<a class="logo" href="index.html" style="text-decoration:none;">JOKI <span>BWS.</span></a>
+<div style="margin-left:auto; display:flex; gap:12px;">
+    <a href="br.html" class="btn btn-outline" style="text-decoration:none;">BR Rank</a>
+    <a href="cs.html" class="btn btn-primary" style="text-decoration:none;">CS Rank</a>
+</div>
+</header>
+<div class="content">
+<div class="joki-section-wrap">
+<div class="joki-calc-section">
+<div class="joki-calc-header">
+<h2>CS Rank</h2>
+<p>Hitung biaya joki CS berdasarkan posisi bintang kumulatif.</p>
+</div>
+<div class="joki-calc-body">
+<div class="calc-row">
+<div class="calc-group">
+<label>Pilih Tier Awal</label>
+<select id="sTier" onchange="updateStarInput('s'); updateTargetTiers();">
+<option hidden selected value="">Pilih Tier</option>
+<option value="Bronze I">Bronze I</option>
+<option value="Bronze II">Bronze II</option>
+<option value="Bronze III">Bronze III</option>
+<option value="Silver I">Silver I</option>
+<option value="Silver II">Silver II</option>
+<option value="Silver III">Silver III</option>
+<option value="Gold I">Gold I</option>
+<option value="Gold II">Gold II</option>
+<option value="Gold III">Gold III</option>
+<option value="Gold IV">Gold IV</option>
+<option value="Platinum I">Platinum I</option>
+<option value="Platinum II">Platinum II</option>
+<option value="Platinum III">Platinum III</option>
+<option value="Platinum IV">Platinum IV</option>
+<option value="Platinum V">Platinum V</option>
+<option value="Diamond I">Diamond I</option>
+<option value="Diamond II">Diamond II</option>
+<option value="Diamond III">Diamond III</option>
+<option value="Diamond IV">Diamond IV</option>
+<option value="Diamond V">Diamond V</option>
+<option value="Heroic">Heroic (1 - 49)</option>
+<option value="Master">Master (51 - 100)</option>
+</select>
+</div>
+<div class="calc-group">
+<label id="sStarLabel">Jumlah Bintang</label>
+<input id="sStar" type="number" placeholder="0" min="0">
+</div>
+</div>
+<div class="calc-row">
+<div class="calc-group">
+<label>Pilih Tier Tujuan</label>
+<select id="tTier" onchange="updateStarInput('t')">
+<option hidden selected value="">Pilih Tier</option>
+</select>
+</div>
+<div class="calc-group">
+<label id="tStarLabel">Jumlah Bintang</label>
+<input id="tStar" type="number" placeholder="0" min="0">
+</div>
+</div>
+<div class="calc-footer" style="flex-direction: column; align-items: stretch; border-top: none; margin-top: 10px; padding-top: 0;">
+<div class="calc-result" style="margin-bottom: 16px; padding-top: 20px; border-top: 1px solid var(--line);">
+<span>Estimasi Harga:</span>
+<strong id="resPrice">Rp 0</strong>
+</div>
+<div style="display: flex; gap: 12px;">
+<button class="btn btn-primary" onclick="hitungCS()" style="flex: 1;">Hitung Harga</button>
+<a id="btnOrder" href="#" target="_blank" class="btn btn-primary" style="flex: 1; display: none; text-align: center; background: #25D366; border-color: #25D366;">Order via WA</a>
+</div>
+</div>
+</div>
+</div>
+
+<div class="price-list-section">
+<h2>Cara Pemesanan</h2>
+<div style="display: flex; flex-direction: column; gap: 20px;">
+<div style="display: flex; gap: 16px; align-items: flex-start;">
+<div style="background: var(--blue-soft); color: var(--blue); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0;">1</div>
+<div>
+<h3 style="font-size: 15px; font-weight: 800; margin-bottom: 4px;">Pilih Posisi Awalmu</h3>
+<p style="font-size: 13px; color: var(--muted);">Tentukan tier dan bintang kamu sekarang, lalu pilih tier dan bintang yang ingin dicapai.</p>
+</div>
+</div>
+<div style="display: flex; gap: 16px; align-items: flex-start;">
+<div style="background: var(--blue-soft); color: var(--blue); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0;">2</div>
+<div>
+<h3 style="font-size: 15px; font-weight: 800; margin-bottom: 4px;">Lihat Harga</h3>
+<p style="font-size: 13px; color: var(--muted);">Klik tombol hitung harga. Nanti langsung muncul total biayanya.</p>
+</div>
+</div>
+<div style="display: flex; gap: 16px; align-items: flex-start;">
+<div style="background: var(--blue-soft); color: var(--blue); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0;">3</div>
+<div>
+<h3 style="font-size: 15px; font-weight: 800; margin-bottom: 4px;">Pesan Lewat WhatsApp</h3>
+<p style="font-size: 13px; color: var(--muted);">Kalau sudah cocok, klik Order. Kamu akan diarahkan ke WhatsApp untuk menyelesaikan pesanan.</p>
+</div>
+</div>
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
+<script>
+    if (typeof tsParticles !== 'undefined') {
+        tsParticles.load("tsparticles", {
+            fpsLimit: 60, particles: { color: { value: "#0f6cff" }, links: { color: "#0f6cff", distance: 150, enable: true, opacity: 0.2, width: 1 }, move: { enable: true, speed: 1 }, number: { value: 60 }, size: { value: { min: 1, max: 4 } } }
+        });
+    }
+
+    const tiers = [
+        { id: 1, name: "Bronze I", stars: 3, price: 350, start: 0, end: 3 },
+        { id: 2, name: "Bronze II", stars: 3, price: 350, start: 3, end: 6 },
+        { id: 3, name: "Bronze III", stars: 3, price: 350, start: 6, end: 9 },
+        { id: 4, name: "Silver I", stars: 4, price: 500, start: 9, end: 13 },
+        { id: 5, name: "Silver II", stars: 4, price: 500, start: 13, end: 17 },
+        { id: 6, name: "Silver III", stars: 4, price: 500, start: 17, end: 21 },
+        { id: 7, name: "Gold I", stars: 4, price: 1000, start: 21, end: 25 },
+        { id: 8, name: "Gold II", stars: 4, price: 1000, start: 25, end: 29 },
+        { id: 9, name: "Gold III", stars: 4, price: 1000, start: 29, end: 33 },
+        { id: 10, name: "Gold IV", stars: 4, price: 1000, start: 33, end: 37 },
+        { id: 11, name: "Platinum I", stars: 5, price: 1500, start: 37, end: 42 },
+        { id: 12, name: "Platinum II", stars: 5, price: 1500, start: 42, end: 47 },
+        { id: 13, name: "Platinum III", stars: 5, price: 1500, start: 47, end: 52 },
+        { id: 14, name: "Platinum IV", stars: 5, price: 1500, start: 52, end: 57 },
+        { id: 15, name: "Platinum V", stars: 5, price: 1500, start: 57, end: 62 },
+        { id: 16, name: "Diamond I", stars: 5, price: 2000, start: 62, end: 67 },
+        { id: 17, name: "Diamond II", stars: 5, price: 2000, start: 67, end: 72 },
+        { id: 18, name: "Diamond III", stars: 5, price: 2000, start: 72, end: 77 },
+        { id: 19, name: "Diamond IV", stars: 5, price: 2000, start: 77, end: 82 },
+        { id: 20, name: "Diamond V", stars: 5, price: 2000, start: 82, end: 87 },
+        { id: 21, name: "Heroic", stars: 49, price: 2500, start: 87, end: 136, isHeroic: true },
+        { id: 22, name: "Master", stars: 50, price: 3000, start: 136, end: 186, isMaster: true }
+    ];
+
+    function updateTargetTiers() {
+        const sTierName = document.getElementById("sTier").value;
+        const tTierSelect = document.getElementById("tTier");
+        const currentVal = tTierSelect.value;
+        
+        tTierSelect.innerHTML = '<option hidden selected value="">Pilih Tier</option>';
+        
+        if (!sTierName) return;
+        
+        const sIndex = tiers.findIndex(t => t.name === sTierName);
+        if (sIndex === -1) return;
+        
+        for (let i = sIndex; i < tiers.length; i++) {
+            const option = document.createElement("option");
+            option.value = tiers[i].name;
+            if (tiers[i].isHeroic) option.textContent = "Heroic (1 - 49)";
+            else if (tiers[i].isMaster) option.textContent = "Master (51 - 100)";
+            else option.textContent = tiers[i].name;
+            tTierSelect.appendChild(option);
+        }
+        
+        if (currentVal && Array.from(tTierSelect.options).some(o => o.value === currentVal)) {
+            tTierSelect.value = currentVal;
+        }
+        updateStarInput('t');
+    }
+
+    function updateStarInput(prefix) {
+        const tierName = document.getElementById(prefix + "Tier").value;
+        const starInput = document.getElementById(prefix + "Star");
+        const label = document.getElementById(prefix + "StarLabel");
+        
+        if (!tierName) return;
+        
+        const tier = tiers.find(t => t.name === tierName);
+        if (!tier) return;
+
+        if (tier.isHeroic) {
+            label.textContent = "Heroic (1 - 49)";
+            starInput.min = 1;
+            starInput.max = 49;
+            starInput.placeholder = "1 - 49";
+            starInput.value = (starInput.value > 49 || starInput.value < 1) ? 1 : starInput.value;
+        } else if (tier.isMaster) {
+            label.textContent = "Master (51 - 100)";
+            starInput.min = 51;
+            starInput.max = 100;
+            starInput.placeholder = "51 - 100";
+            starInput.value = (starInput.value > 100 || starInput.value < 51) ? 51 : starInput.value;
+        } else {
+            // Menggunakan tier.stars secara langsung (bukan -1) khusus untuk Platinum & Diamond
+            let maxStars = tier.stars - 1;
+            if (tierName.startsWith("Platinum") || tierName.startsWith("Diamond")) {
+                maxStars = tier.stars; // 0 - 5
+            }
+            label.textContent = "Bintang Saat Ini (0 - " + maxStars + ")";
+            starInput.min = 0;
+            starInput.max = maxStars;
+            starInput.placeholder = "0 - " + maxStars;
+            starInput.value = (starInput.value > maxStars || starInput.value < 0) ? 0 : starInput.value;
+        }
+    }
+
+    function hitungCS() {
+        const sTierName = document.getElementById("sTier").value;
+        const sStar = parseInt(document.getElementById("sStar").value) || 0;
+        const tTierName = document.getElementById("tTier").value;
+        const tStar = parseInt(document.getElementById("tStar").value) || 0;
+
+        if (!sTierName || !tTierName) {
+            alert("Pilih Tier Awal dan Tier Tujuan!");
+            return;
+        }
+
+        const sTierData = tiers.find(t => t.name === sTierName);
+        const tTierData = tiers.find(t => t.name === tTierName);
+
+        let sMaxStars = sTierData.stars - 1;
+        if (sTierName.startsWith("Platinum") || sTierName.startsWith("Diamond")) sMaxStars = sTierData.stars;
+
+        let tMaxStars = tTierData.stars - 1;
+        if (tTierName.startsWith("Platinum") || tTierName.startsWith("Diamond")) tMaxStars = tTierData.stars;
+
+        if (sTierData.isHeroic && (sStar < 1 || sStar > 49)) {
+            alert("Heroic (1 - 49) tidak valid!");
+            return;
+        }
+        if (sTierData.isMaster && (sStar < 51 || sStar > 100)) {
+            alert("Master (51 - 100) tidak valid!");
+            return;
+        }
+        if (!sTierData.isHeroic && !sTierData.isMaster && (sStar < 0 || sStar > sMaxStars)) {
+            alert("Bintang " + sTierName + " harus antara 0 sampai " + sMaxStars + "!");
+            return;
+        }
+
+        if (tTierData.isHeroic && (tStar < 1 || tStar > 49)) {
+            alert("Heroic (1 - 49) tidak valid!");
+            return;
+        }
+        if (tTierData.isMaster && (tStar < 51 || tStar > 100)) {
+            alert("Master (51 - 100) tidak valid!");
+            return;
+        }
+        if (!tTierData.isHeroic && !tTierData.isMaster && (tStar < 0 || tStar > tMaxStars)) {
+            alert("Bintang " + tTierName + " harus antara 0 sampai " + tMaxStars + "!");
+            return;
+        }
+
+        let startPos = 0;
+        if (sTierData.isHeroic) {
+            startPos = 87 + (sStar - 1);
+        } else if (sTierData.isMaster) {
+            startPos = 136 + (sStar - 51);
+        } else {
+            startPos = sTierData.start + sStar;
+        }
+
+        let endPos = 0;
+        if (tTierData.isHeroic) {
+            endPos = 87 + (tStar - 1);
+        } else if (tTierData.isMaster) {
+            endPos = 136 + (tStar - 51);
+        } else {
+            endPos = tTierData.start + tStar;
+        }
+
+        if (endPos <= startPos) {
+            alert("Target rank harus lebih tinggi dari rank awal!");
+            return;
+        }
+
+        let total = 0;
+        for (let i = startPos; i < endPos; i++) {
+            if (i >= 0 && i < 9) total += 350;
+            else if (i >= 9 && i < 21) total += 500;
+            else if (i >= 21 && i < 37) total += 1000;
+            else if (i >= 37 && i < 62) total += 1500;
+            else if (i >= 62 && i < 87) total += 2000;
+            else if (i >= 87 && i < 136) total += 2500;
+            else if (i >= 136) total += 3000;
+        }
+
+        const priceFormatted = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(total);
+        document.getElementById("resPrice").textContent = priceFormatted;
+
+        const btnOrder = document.getElementById("btnOrder");
+        btnOrder.style.display = "block";
+        
+        let waText = "Halo Admin JOKI BWS, saya ingin order JOKI CS RANK.%0A%0ADetail Pesanan:%0A- Rank Awal: " + sTierName + " (" + sStar + " Bintang)%0A- Rank Tujuan: " + tTierName + " (" + tStar + " Bintang)%0A- Total Estimasi: " + priceFormatted + "%0A%0AMohon info selanjutnya.";
+        btnOrder.href = "https://wa.me/6285122638727?text=" + waText;
+    }
+</script>
+</body>
+</html>
+
+
+
+
+

@@ -1,0 +1,236 @@
+﻿<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JOKI BWS - BR Rank</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./assets/css/style.css">
+</head>
+<body>
+<div id="tsparticles" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none;"></div>
+<div class="layout" style="position: relative; z-index: 1;">
+<header class="header">
+<a class="logo" href="index.html" style="text-decoration:none;">JOKI <span>BWS.</span></a>
+<div style="margin-left:auto; display:flex; gap:12px;">
+    <a href="br.html" class="btn btn-primary" style="text-decoration:none;">BR Rank</a>
+    <a href="cs.html" class="btn btn-outline" style="text-decoration:none;">CS Rank</a>
+</div>
+</header>
+<div class="content">
+<div class="joki-section-wrap">
+<!-- KALKULATOR BR -->
+<div class="joki-calc-section">
+<div class="joki-calc-header">
+<h2>BR Rank</h2>
+<p>Hitung estimasi biaya joki Battle Royale kamu.</p>
+</div>
+<div class="joki-calc-body">
+<div class="calc-row">
+<div class="calc-group">
+<label>Rank Awalmu</label>
+<select id="sRank" onchange="updateTiers('s')">
+<option hidden selected value="">Pilih Rank</option>
+<option value="Bronze">Bronze</option>
+<option value="Silver">Silver</option>
+<option value="Gold">Gold</option>
+<option value="Platinum">Platinum</option>
+<option value="Diamond">Diamond</option>
+<option value="Heroic">Heroic</option>
+<option value="Master">Master</option>
+</select>
+</div>
+<div class="calc-group">
+<label>Tier</label>
+<select id="sTier">
+<option value="">Pilih Tier</option>
+</select>
+</div>
+</div>
+<div class="calc-row">
+<div class="calc-group">
+<label>Rank Tujuanmu</label>
+<select id="tRank" onchange="updateTiers('t')">
+<option hidden selected value="">Pilih Rank</option>
+<option value="Bronze">Bronze</option>
+<option value="Silver">Silver</option>
+<option value="Gold">Gold</option>
+<option value="Platinum">Platinum</option>
+<option value="Diamond">Diamond</option>
+<option value="Heroic">Heroic</option>
+<option value="Master">Master</option>
+</select>
+</div>
+<div class="calc-group">
+<label>Tier</label>
+<select id="tTier">
+<option value="">Pilih Tier</option>
+</select>
+</div>
+</div>
+<div class="calc-footer" style="flex-direction: column; align-items: stretch; border-top: none; margin-top: 10px; padding-top: 0;">
+<div class="calc-result" style="margin-bottom: 16px; padding-top: 20px; border-top: 1px solid var(--line);">
+<span>Estimasi Harga:</span>
+<strong id="resPrice">Rp 0</strong>
+</div>
+<div style="display: flex; gap: 12px;">
+<button class="btn btn-primary" onclick="hitungBR()" style="flex: 1;">Hitung Harga</button>
+<a id="btnOrder" href="#" target="_blank" class="btn btn-primary" style="flex: 1; display: none; text-align: center; background: #25D366; border-color: #25D366;">Order via WA</a>
+</div>
+</div>
+</div>
+</div>
+
+<!-- CARA PEMESANAN BR -->
+<div class="price-list-section">
+<h2>Cara Pemesanan</h2>
+<div style="display: flex; flex-direction: column; gap: 20px;">
+<div style="display: flex; gap: 16px; align-items: flex-start;">
+<div style="background: var(--blue-soft); color: var(--blue); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0;">1</div>
+<div>
+<h3 style="font-size: 15px; font-weight: 800; margin-bottom: 4px;">Pilih Rank & Tier</h3>
+<p style="font-size: 13px; color: var(--muted);">Tentukan rank dan tier awal kamu saat ini, serta rank dan tier yang kamu inginkan.</p>
+</div>
+</div>
+<div style="display: flex; gap: 16px; align-items: flex-start;">
+<div style="background: var(--blue-soft); color: var(--blue); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0;">2</div>
+<div>
+<h3 style="font-size: 15px; font-weight: 800; margin-bottom: 4px;">Hitung Harga</h3>
+<p style="font-size: 13px; color: var(--muted);">Klik tombol "Hitung Harga" untuk melihat estimasi biaya joki secara otomatis.</p>
+</div>
+</div>
+<div style="display: flex; gap: 16px; align-items: flex-start;">
+<div style="background: var(--blue-soft); color: var(--blue); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0;">3</div>
+<div>
+<h3 style="font-size: 15px; font-weight: 800; margin-bottom: 4px;">Order via WhatsApp</h3>
+<p style="font-size: 13px; color: var(--muted);">Setelah harga muncul, klik tombol Order untuk diarahkan ke WhatsApp admin dan konfirmasi pesananmu.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- SCRIPT 1: PARTIKEL -->
+<script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
+<script>
+    if (typeof tsParticles !== 'undefined') {
+        tsParticles.load("tsparticles", {
+            fpsLimit: 60, particles: { color: { value: "#0f6cff" }, links: { color: "#0f6cff", distance: 150, enable: true, opacity: 0.2, width: 1 }, move: { enable: true, speed: 1 }, number: { value: 60 }, size: { value: { min: 1, max: 4 } } }
+        });
+    }
+</script>
+
+<!-- SCRIPT 2: KALKULATOR BR -->
+<script>
+    const tiersPerRank = {
+        "Bronze": ["I", "II", "III"],
+        "Silver": ["I", "II", "III"],
+        "Gold": ["I", "II", "III", "IV"],
+        "Platinum": ["I", "II", "III", "IV", "V"],
+        "Diamond": ["I", "II", "III", "IV", "V"],
+        "Heroic": ["I", "II", "III", "IV", "V"],
+        "Master": ["I"]
+    };
+
+    const pricePoints = {
+        "Bronze I": 1000, "Bronze II": 1000, "Bronze III": 1000,
+        "Silver I": 2000, "Silver II": 2000, "Silver III": 2000,
+        "Gold I": 3000, "Gold II": 3000, "Gold III": 3000, "Gold IV": 3000,
+        "Platinum I": 4000, "Platinum II": 4000, "Platinum III": 4000, "Platinum IV": 4000, "Platinum V": 4000,
+        "Diamond I": 6000, "Diamond II": 7000, "Diamond III": 7000, "Diamond IV": 7000, "Diamond V": 8000,
+        "Heroic I": 12000, "Heroic II": 15000, "Heroic III": 20000, "Heroic IV": 25000, "Heroic V": 30000,
+        "Master I": 30000
+    };
+
+    const rankOrder = ["Bronze", "Silver", "Gold", "Platinum", "Diamond", "Heroic", "Master"];
+    
+    function getAllTiersFlat() {
+        let flat = [];
+        rankOrder.forEach(rank => {
+            tiersPerRank[rank].forEach(tier => {
+                flat.push({ rank: rank, tier: tier, price: pricePoints[rank + " " + tier] });
+            });
+        });
+        return flat;
+    }
+
+    function updateTiers(prefix) {
+        const rank = document.getElementById(prefix + "Rank").value;
+        const tierSelect = document.getElementById(prefix + "Tier");
+        tierSelect.innerHTML = '<option value="">Pilih Tier</option>';
+        if (rank && tiersPerRank[rank]) {
+            tiersPerRank[rank].forEach(t => {
+                const option = document.createElement("option");
+                option.value = t;
+                option.textContent = t;
+                tierSelect.appendChild(option);
+            });
+        }
+        if (prefix === 's') {
+            updateTargetRanks();
+        }
+    }
+
+    function updateTargetRanks() {
+        const sRank = document.getElementById("sRank").value;
+        const tRankSelect = document.getElementById("tRank");
+        const currentTVal = tRankSelect.value;
+
+        tRankSelect.innerHTML = '<option hidden selected value="">Pilih Rank</option>';
+        
+        if (!sRank) return;
+
+        const sRankIndex = rankOrder.indexOf(sRank);
+        for (let i = sRankIndex; i < rankOrder.length; i++) {
+            const option = document.createElement("option");
+            option.value = rankOrder[i];
+            option.textContent = rankOrder[i];
+            tRankSelect.appendChild(option);
+        }
+
+        if (currentTVal && Array.from(tRankSelect.options).some(o => o.value === currentTVal)) {
+            tRankSelect.value = currentTVal;
+        }
+        updateTiers('t');
+    }
+
+    function hitungBR() {
+        const sRank = document.getElementById("sRank").value;
+        const sTier = document.getElementById("sTier").value;
+        const tRank = document.getElementById("tRank").value;
+        const tTier = document.getElementById("tTier").value;
+
+        if (!sRank || !sTier || !tRank || !tTier) {
+            alert("Pilih Rank dan Tier Awal serta Tujuan!");
+            return;
+        }
+
+        const allTiers = getAllTiersFlat();
+        const startIndex = allTiers.findIndex(item => item.rank === sRank && item.tier === sTier);
+        const endIndex = allTiers.findIndex(item => item.rank === tRank && item.tier === tTier);
+
+        if (startIndex >= endIndex) {
+            alert("Rank Tujuan harus lebih tinggi dari Rank Awal!");
+            return;
+        }
+
+        let totalPrice = 0;
+        for (let i = startIndex + 1; i <= endIndex; i++) {
+            totalPrice += allTiers[i].price;
+        }
+
+        const priceFormatted = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(totalPrice);
+        document.getElementById("resPrice").textContent = priceFormatted;
+
+        const btnOrder = document.getElementById("btnOrder");
+        btnOrder.style.display = "block";
+        const waText = encodeURIComponent("Halo Admin JOKI BWS, saya ingin order JOKI BR RANK.\n\nDetail Pesanan:\n- Rank Awal: " + sRank + " " + sTier + "\n- Rank Tujuan: " + tRank + " " + tTier + "\n- Total Estimasi: " + priceFormatted + "\n\nMohon info selanjutnya.");
+        btnOrder.href = "https://wa.me/6285122638727?text=" + waText;
+    }
+</script>
+</body>
+</html>
+
+
